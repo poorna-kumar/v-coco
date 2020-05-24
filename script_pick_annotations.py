@@ -15,11 +15,11 @@ if __name__ == "__main__":
   
   # First merge annotations from train and val
   # Load the train and val annotations
-  json_train_file = '{:s}/instances_{:s}.json'.format(coco_annotation_dir, 'train2014')
+  json_train_file = '{:s}/instances_{:s}.json'.format(coco_annotation_dir, 'train2017')
   print("Loading training annotations from %s"%(format(json_train_file)))
   json_train = json.load(open(json_train_file, 'r'))
 
-  json_val_file = '{:s}/instances_{:s}.json'.format(coco_annotation_dir, 'val2014')
+  json_val_file = '{:s}/instances_{:s}.json'.format(coco_annotation_dir, 'val2017')
   print("Loading validating annotations from %s"%(format(json_val_file)))
   json_val = json.load(open(json_val_file, 'r'))
 
@@ -33,7 +33,7 @@ if __name__ == "__main__":
   json_all['annotations'] = json_train['annotations'] + json_val['annotations'];
 
   # write out collected trainval annotations to a single file
-  json_trainval_file = '{:s}/instances_{:s}.json'.format(coco_annotation_dir, 'trainval2014')
+  json_trainval_file = '{:s}/instances_{:s}.json'.format(coco_annotation_dir, 'trainval2017')
   with open(json_trainval_file, 'w') as outfile:
     json.dump(json_all, outfile)
   del json_train 
@@ -41,7 +41,7 @@ if __name__ == "__main__":
   del json_all
 
   # Second, selct annotations needed for V-COCO
-  json_trainval = json.load(open('{:s}/instances_{:s}.json'.format(coco_annotation_dir, 'trainval2014'), 'r'))
+  json_trainval = json.load(open('{:s}/instances_{:s}.json'.format(coco_annotation_dir, 'trainval2017'), 'r'))
 
   vcoco_imlist = np.loadtxt(os.path.join(vcoco_annotation_dir, 'splits', 'vcoco_all.ids'))[:,np.newaxis]
 
@@ -66,7 +66,7 @@ if __name__ == "__main__":
   json_trainval['annotations'] = j_annotations
   json_trainval['images'] = j_images
 
-  vcoco = os.path.join(vcoco_annotation_dir, 'instances_vcoco_all_2014.json')
+  vcoco = os.path.join(vcoco_annotation_dir, 'instances_vcoco_all_2017.json')
   print("Writing COCO annotations needed for V-COCO to %s."%(format(vcoco)))
   with open(vcoco, 'wt') as f:
     json.dump(json_trainval, f)
